@@ -16,10 +16,20 @@ public class DrawingPanel extends JPanel {
 	
 	private Tool selected;
 	private int i = 0;
+	private MyShape lastDrawn = null;
 	
+	public MyShape getLastDrawn() {
+		return lastDrawn;
+	}
+
+	public void setLastDrawn(MyShape lastDrawn) {
+		this.lastDrawn = lastDrawn;
+	}
+
 	public DrawingPanel() {
 		super();
 		addMouseListener(new MouseHandler(this));
+		addMouseMotionListener(new MouseHandler(this));
 		selected = Tool.LINE;
 		super.setBackground(Color.WHITE);
 	}
@@ -53,28 +63,43 @@ public class DrawingPanel extends JPanel {
 	
 	public void drawLine(Point point){
 		MyLine line = new MyLine();
-		line.setCoords(point.x, point.y, point.x + 50, point.y + 50);
+		line.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(line);
 		repaint();
+		lastDrawn = line;
 	}
 	
 	public void drawRect(Point point){
 		MyRectangle rect = new MyRectangle();
-		rect.setCoords(point.x, point.y, point.x + 50, point.y + 50);
+		rect.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(rect);
 		repaint();
+		lastDrawn = rect;
 	}
 	
 	public void drawEllipse(Point point){
 		MyEllipse ellipse = new MyEllipse();
-		ellipse.setCoords(point.x, point.y, point.x + 50, point.y + 50);
+		ellipse.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(ellipse);
 		repaint();
+		lastDrawn = ellipse;
 	}
 	
 	public void delete(Point point){
-		
-		
+		for(int i = shapesList.size() - 1; i >= 0; i--){
+			if(shapesList.get(i).contains(point)){
+				shapesList.remove(i);
+				break;
+			}
+		}
+		repaint();
+	}
+	
+	public void changeLastDrawn(Point point){
+		if(lastDrawn != null && selected != Tool.DELETE){
+			lastDrawn.setCoords(lastDrawn.x1, lastDrawn.y1, point.x, point.y);
+			repaint();
+		}
 	}
 	
 	public void setSelected(Tool tool){

@@ -32,23 +32,23 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		drawingPanel.draw(e.getPoint());
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		drawingPanel.draw(e.getPoint());
+		drawingPanel.setLastDrawn(null);
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseDragged(MouseEvent e) {
+		drawingPanel.changeLastDrawn(e.getPoint());
 		
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent arg0) {
+	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

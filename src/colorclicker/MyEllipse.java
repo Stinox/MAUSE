@@ -23,6 +23,6 @@ public class MyEllipse extends MyShape {
 	}
 	
 	public boolean contains(Point point){
-		return (point.x >= x1 && point.x <= x2 && point.y >= y1 && point.y <= y2);
+		return (point.x >= startx && point.x <= startx+width && point.y >= starty && point.y <= starty+height);
 	}
 }

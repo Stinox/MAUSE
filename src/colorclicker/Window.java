@@ -8,9 +8,9 @@ import javax.swing.JFrame;
 
 public class Window extends JFrame {
 	public Window() {
-		// ’super ’ calls a function inherited from the parent class ( JFrame )
+		// â€™super â€™ calls a function inherited from the parent class ( JFrame )
 		super();
-		super.setTitle(" Callbacks ");
+		super.setTitle(" Mega Awesome Uber Super Epic - MAUSE ");
 		super.setSize(new Dimension(1024, 768));
 		// Make sure the window appears in the middle of your screen
 		super.setLocationRelativeTo(null);

@@ -1,4 +1,4 @@
-package colorclicker;
+package mause;
 
 import java.awt.Graphics2D;
 import java.awt.Point;

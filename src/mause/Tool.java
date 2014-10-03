@@ -1,4 +1,4 @@
-package colorclicker;
+package mause;
 
 public enum Tool {
 

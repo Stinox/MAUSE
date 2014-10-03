@@ -1,4 +1,4 @@
-package colorclicker;
+package mause;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

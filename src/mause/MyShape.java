@@ -1,6 +1,7 @@
-package colorclicker;
+package mause;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
@@ -9,6 +10,8 @@ public abstract class MyShape {
 
 	protected int x1, y1, x2, y2;
 	protected int width, height, startx, starty;
+	private int strokeSize;
+	private Color color;
 	
 	public abstract boolean contains(Point point);
 	
@@ -28,9 +31,18 @@ public abstract class MyShape {
 		height = Math.abs(this.y1 - this.y2);
 		startx = Math.min(this.x1, this.x2);
 		starty = Math.min(this.y1, this.y2);
-		g.setStroke(new BasicStroke(3));
+		g.setStroke(new BasicStroke(strokeSize));
+		g.setColor(color);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
+	}
+	
+	public void setStrokeSize(int thickness){
+		strokeSize = thickness;
+	}
+	
+	public void setColor(Color color){
+		this.color = color;
 	}
 	
 	public void setCoords(int x1, int y1, int x2, int y2) {

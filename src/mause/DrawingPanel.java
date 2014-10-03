@@ -1,12 +1,12 @@
-package colorclicker;
+package mause;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.JPanel;
 
@@ -15,8 +15,9 @@ public class DrawingPanel extends JPanel {
 	private List<MyShape> shapesList = new ArrayList<MyShape>();
 	
 	private Tool selected;
-	private int i = 0;
 	private MyShape lastDrawn = null;
+	private int strokeSize = 3;
+	private Color color;
 	
 	public MyShape getLastDrawn() {
 		return lastDrawn;
@@ -65,6 +66,8 @@ public class DrawingPanel extends JPanel {
 		MyLine line = new MyLine();
 		line.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(line);
+		line.setStrokeSize(strokeSize);
+		line.setColor(color);
 		repaint();
 		lastDrawn = line;
 	}
@@ -73,6 +76,8 @@ public class DrawingPanel extends JPanel {
 		MyRectangle rect = new MyRectangle();
 		rect.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(rect);
+		rect.setStrokeSize(strokeSize);
+		rect.setColor(color);
 		repaint();
 		lastDrawn = rect;
 	}
@@ -81,6 +86,8 @@ public class DrawingPanel extends JPanel {
 		MyEllipse ellipse = new MyEllipse();
 		ellipse.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(ellipse);
+		ellipse.setStrokeSize(strokeSize);
+		ellipse.setColor(color);
 		repaint();
 		lastDrawn = ellipse;
 	}
@@ -105,4 +112,13 @@ public class DrawingPanel extends JPanel {
 	public void setSelected(Tool tool){
 		selected = tool;
 	}
+	
+	public void setStrokeSize(int thickness){
+		strokeSize = thickness;
+	}
+	
+	public void setColor(Color color){
+		this.color = color;
+	}
+
 }

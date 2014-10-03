@@ -1,4 +1,4 @@
-package colorclicker;
+package mause;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

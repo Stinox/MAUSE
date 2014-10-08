@@ -14,19 +14,31 @@ public class ButtonHandler implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() == "Rectangle"){
-			drawingPanel.setSelected(Tool.RECTANGLE);
-		} else if(e.getActionCommand() == "Ellipse"){
-			drawingPanel.setSelected(Tool.ELLIPSE);
-		} else if(e.getActionCommand() == "Line"){
-			drawingPanel.setSelected(Tool.LINE);
-		} else if(e.getActionCommand() == "Delete"){
-			drawingPanel.setSelected(Tool.DELETE);
-		} else if(e.getActionCommand() == "Red"){
+			drawingPanel.setSelectedTool(Tool.RECTANGLE);
+		} 
+		else if(e.getActionCommand() == "Ellipse"){
+			drawingPanel.setSelectedTool(Tool.ELLIPSE);
+		} 
+		else if(e.getActionCommand() == "Line"){
+			drawingPanel.setSelectedTool(Tool.LINE);
+		} 
+		else if(e.getActionCommand() == "Delete"){
+			drawingPanel.setSelectedTool(Tool.DELETE);
+		} 
+		else if(e.getActionCommand() == "Red"){
 			drawingPanel.setColor(Color.RED);
-		} else if(e.getActionCommand() == "Black"){
+		} 
+		else if(e.getActionCommand() == "Black"){
 			drawingPanel.setColor(Color.BLACK);
-		} else if(e.getActionCommand() == "Blue"){
+		} 
+		else if(e.getActionCommand() == "Blue"){
 			drawingPanel.setColor(Color.BLUE);
+		} 
+		else if(e.getActionCommand() == "Stroke"){
+			drawingPanel.setCurrentCCS(ColorChangeState.STROKE);
+		}
+		else if(e.getActionCommand() == "Fill"){
+			drawingPanel.setCurrentCCS(ColorChangeState.FILL);
 		}
 	}
 

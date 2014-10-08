@@ -3,6 +3,7 @@ package mause;
 import java.awt.Color;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -43,5 +44,20 @@ public class ButtonPanel extends JPanel {
 		blue.setBackground(Color.BLUE);
 		this.add(blue);
 		blue.addActionListener(new ButtonHandler(drawingPanel));
+		
+		JButton changeStrokeColor = new JButton("Stroke");
+		JButton changeFillColor = new JButton("Fill");
+		changeStrokeColor.addActionListener(new ButtonHandler(drawingPanel));
+		changeFillColor.addActionListener(new ButtonHandler(drawingPanel));
+		changeStrokeColor.setBackground(new Color(0,162,255));
+		changeStrokeColor.setForeground(Color.BLACK);
+		drawingPanel.setFill(changeFillColor);
+		drawingPanel.setStroke(changeStrokeColor);
+		this.add(changeStrokeColor);
+		this.add(changeFillColor);
+		
+		JCheckBox fill = new JCheckBox("fill (on/off)");
+		drawingPanel.setFillCheck(fill);
+		add(fill);
 	}
 }

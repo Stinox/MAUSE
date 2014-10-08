@@ -1,6 +1,5 @@
 package mause;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,16 +7,23 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 public class DrawingPanel extends JPanel {
 	
 	private List<MyShape> shapesList = new ArrayList<MyShape>();
 	
-	private Tool selected;
+	private Tool selectedTool;
 	private MyShape lastDrawn = null;
 	private int strokeSize = 3;
-	private Color color;
+	private Color strokeColor = Color.BLACK;
+	private Color fillColor = Color.WHITE;
+	private ColorChangeState currentCCS;
+	private JButton stroke;
+	private JButton fill;
+	private JCheckBox fillCheck;
 	
 	public MyShape getLastDrawn() {
 		return lastDrawn;
@@ -31,7 +37,8 @@ public class DrawingPanel extends JPanel {
 		super();
 		addMouseListener(new MouseHandler(this));
 		addMouseMotionListener(new MouseHandler(this));
-		selected = Tool.LINE;
+		selectedTool = Tool.RECTANGLE;
+		currentCCS = ColorChangeState.STROKE;
 		super.setBackground(Color.WHITE);
 	}
 
@@ -44,7 +51,7 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	public void draw(Point point){
-		switch (selected) {
+		switch (selectedTool) {
 		case LINE:
 			drawLine(point);
 			break;
@@ -67,7 +74,9 @@ public class DrawingPanel extends JPanel {
 		line.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(line);
 		line.setStrokeSize(strokeSize);
-		line.setColor(color);
+		line.setStrokeColor(strokeColor);
+		line.setFillColor(fillColor);
+		line.setFill(fillCheck.isSelected());
 		repaint();
 		lastDrawn = line;
 	}
@@ -77,7 +86,9 @@ public class DrawingPanel extends JPanel {
 		rect.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(rect);
 		rect.setStrokeSize(strokeSize);
-		rect.setColor(color);
+		rect.setStrokeColor(strokeColor);
+		rect.setFillColor(fillColor);
+		rect.setFill(fillCheck.isSelected());
 		repaint();
 		lastDrawn = rect;
 	}
@@ -87,7 +98,9 @@ public class DrawingPanel extends JPanel {
 		ellipse.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(ellipse);
 		ellipse.setStrokeSize(strokeSize);
-		ellipse.setColor(color);
+		ellipse.setStrokeColor(strokeColor);
+		ellipse.setFillColor(fillColor);
+		ellipse.setFill(fillCheck.isSelected());
 		repaint();
 		lastDrawn = ellipse;
 	}
@@ -103,14 +116,14 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	public void changeLastDrawn(Point point){
-		if(lastDrawn != null && selected != Tool.DELETE){
+		if(lastDrawn != null && selectedTool != Tool.DELETE){
 			lastDrawn.setCoords(lastDrawn.x1, lastDrawn.y1, point.x, point.y);
 			repaint();
 		}
 	}
 	
-	public void setSelected(Tool tool){
-		selected = tool;
+	public void setSelectedTool(Tool tool){
+		selectedTool = tool;
 	}
 	
 	public void setStrokeSize(int thickness){
@@ -118,7 +131,44 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	public void setColor(Color color){
-		this.color = color;
+		switch(currentCCS) {
+			case STROKE:
+				this.strokeColor = color;
+				stroke.setForeground(color);
+				break;
+			case FILL:
+				this.fillColor = color;
+				fill.setForeground(color);
+				break;
+		}
+		
 	}
+
+	public void setCurrentCCS(ColorChangeState currentCCS) {
+		this.currentCCS = currentCCS;
+		switch(currentCCS) {
+		case STROKE:
+			stroke.setBackground(new Color(0, 162, 255));
+			fill.setBackground(null);
+			break;
+		case FILL:
+			fill.setBackground(new Color(0, 162, 255));
+			stroke.setBackground(null);
+			break;
+		}
+	}
+
+	public void setStroke(JButton stroke) {
+		this.stroke = stroke;
+	}
+
+	public void setFill(JButton fill) {
+		this.fill = fill;
+	}
+
+	public void setFillCheck(JCheckBox fillCheck) {
+		this.fillCheck = fillCheck;
+	}
+	
 
 }

@@ -11,7 +11,9 @@ public abstract class MyShape {
 	protected int x1, y1, x2, y2;
 	protected int width, height, startx, starty;
 	private int strokeSize;
-	private Color color;
+	protected Color strokeColor;
+	protected Color fillColor;
+	protected boolean fill;
 	
 	public abstract boolean contains(Point point);
 	
@@ -32,7 +34,6 @@ public abstract class MyShape {
 		startx = Math.min(this.x1, this.x2);
 		starty = Math.min(this.y1, this.y2);
 		g.setStroke(new BasicStroke(strokeSize));
-		g.setColor(color);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 	}
@@ -41,8 +42,12 @@ public abstract class MyShape {
 		strokeSize = thickness;
 	}
 	
-	public void setColor(Color color){
-		this.color = color;
+	public void setStrokeColor(Color color){
+		this.strokeColor = color;
+	}
+	
+	public void setFillColor(Color color){
+		this.fillColor = color;
 	}
 	
 	public void setCoords(int x1, int y1, int x2, int y2) {
@@ -83,4 +88,10 @@ public abstract class MyShape {
 	public void setY2(int y2) {
 		this.y2 = y2;
 	}
+
+	public void setFill(boolean fill) {
+		this.fill = fill;
+	}
+	
+	
 }

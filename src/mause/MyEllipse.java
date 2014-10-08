@@ -19,7 +19,13 @@ public class MyEllipse extends MyShape {
 		super.draw(g);
 		Ellipse2D.Double ellipse = new Ellipse2D.Double(startx, starty, width,
 				height);
+		if(fill){
+			g.setColor(fillColor);
+			g.fill(ellipse);
+		}
+		g.setColor(strokeColor);
 		g.draw(ellipse);
+		
 	}
 	
 	public boolean contains(Point point){

@@ -18,6 +18,7 @@ public class MyLine extends MyShape {
 	public void draw(Graphics2D g) {
 		super.draw(g);
 		Line2D.Double line = new Line2D.Double(x1, y1, x2, y2);
+		g.setColor(strokeColor);
 		g.draw(line);
 	}
 	

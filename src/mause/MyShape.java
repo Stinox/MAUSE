@@ -10,10 +10,12 @@ public abstract class MyShape {
 
 	protected int x1, y1, x2, y2;
 	protected int width, height, startx, starty;
-	private int strokeSize;
+	protected int strokeSize;
 	protected Color strokeColor;
 	protected Color fillColor;
 	protected boolean fill;
+	protected boolean isSelected = true;
+	protected int borderPadding = 3;
 	
 	public abstract boolean contains(Point point);
 	
@@ -93,5 +95,16 @@ public abstract class MyShape {
 		this.fill = fill;
 	}
 	
+	public void setSelected(boolean bool){
+		isSelected = bool;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
 	
 }

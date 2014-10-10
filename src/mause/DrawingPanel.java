@@ -24,6 +24,11 @@ public class DrawingPanel extends JPanel {
 	private JButton stroke;
 	private JButton fill;
 	private JCheckBox fillCheck;
+	private ArrayList<ToolButton> toolButtons = new ArrayList<ToolButton>();
+	private Color selectedColor = new Color(0, 162, 255);
+	private MyShape selectedShape;
+	private Point mouse;
+	private Point shape;
 	
 	public MyShape getLastDrawn() {
 		return lastDrawn;
@@ -61,6 +66,9 @@ public class DrawingPanel extends JPanel {
 		case ELLIPSE:
 			drawEllipse(point);
 			break;
+		case HAND:
+			hand(point);
+			break;
 		case DELETE:
 			delete(point);
 			break;
@@ -69,7 +77,7 @@ public class DrawingPanel extends JPanel {
 		}
 	}
 	
-	public void drawLine(Point point){
+	private void drawLine(Point point){
 		MyLine line = new MyLine();
 		line.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(line);
@@ -81,7 +89,7 @@ public class DrawingPanel extends JPanel {
 		lastDrawn = line;
 	}
 	
-	public void drawRect(Point point){
+	private void drawRect(Point point){
 		MyRectangle rect = new MyRectangle();
 		rect.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(rect);
@@ -93,7 +101,7 @@ public class DrawingPanel extends JPanel {
 		lastDrawn = rect;
 	}
 	
-	public void drawEllipse(Point point){
+	private void drawEllipse(Point point){
 		MyEllipse ellipse = new MyEllipse();
 		ellipse.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(ellipse);
@@ -105,7 +113,42 @@ public class DrawingPanel extends JPanel {
 		lastDrawn = ellipse;
 	}
 	
-	public void delete(Point point){
+	private void hand(Point point){
+		if(selectedShape != null && selectedShape.contains(point)){
+			moveShape(point);
+		}
+		else {
+			boolean found = false;
+			for(int i = shapesList.size()-1; i >= 0 && !found; i--){
+				if(shapesList.get(i).contains(point)){
+					selectShape(shapesList.get(i));
+					found = true;
+				}
+			}
+			if (!found){
+				selectedShape.setSelected(false);
+				selectedShape = null;
+			}
+			repaint();
+		}
+	}
+	
+	public void moveShape(Point point){
+		if(mouse == null || shape == null){
+			mouse = point;
+			shape = new Point(selectedShape.getX1(), selectedShape.getY1());
+		} else {
+			Point diff = getManhattanDistance(mouse, point);
+			selectedShape.setCoords(shape.x + diff.x, shape.y + diff.y, selectedShape.getWidth(), selectedShape.getHeight());
+		}
+		repaint();
+	}
+	
+	private Point getManhattanDistance(Point p1, Point p2){
+		return new Point(p2.x - p1.x, p2.y - p1.y);
+	}
+	
+	private void delete(Point point){
 		for(int i = shapesList.size() - 1; i >= 0; i--){
 			if(shapesList.get(i).contains(point)){
 				shapesList.remove(i);
@@ -124,6 +167,14 @@ public class DrawingPanel extends JPanel {
 	
 	public void setSelectedTool(Tool tool){
 		selectedTool = tool;
+		for(ToolButton button : toolButtons){
+			if(button.getTool() == tool){
+				button.setBackground(selectedColor);
+			}
+			else {
+				button.setBackground(null);
+			}
+		}
 	}
 	
 	public void setStrokeSize(int thickness){
@@ -141,21 +192,33 @@ public class DrawingPanel extends JPanel {
 				fill.setForeground(color);
 				break;
 		}
-		
 	}
 
 	public void setCurrentCCS(ColorChangeState currentCCS) {
 		this.currentCCS = currentCCS;
 		switch(currentCCS) {
 		case STROKE:
-			stroke.setBackground(new Color(0, 162, 255));
+			stroke.setBackground(selectedColor);
 			fill.setBackground(null);
 			break;
 		case FILL:
-			fill.setBackground(new Color(0, 162, 255));
+			fill.setBackground(selectedColor);
 			stroke.setBackground(null);
 			break;
 		}
+	}
+	
+	public void selectShape(MyShape shape){
+		selectedShape = shape;
+		for(MyShape s : shapesList){
+			if(s == shape){
+				s.setSelected(true);
+			}
+			else {
+				s.setSelected(false);
+			}
+		}
+		repaint();
 	}
 
 	public void setStroke(JButton stroke) {
@@ -170,5 +233,22 @@ public class DrawingPanel extends JPanel {
 		this.fillCheck = fillCheck;
 	}
 	
+	public void addButton(ToolButton button) {
+		toolButtons.add(button);
+	}
+	
+	public void stopMove(){
+		mouse = null;
+		shape = null;
+	}
+	
+	public MyShape getSelectedShape(){
+		return selectedShape;
+	}
 
+	public void setSelectedShape(MyShape selectedShape) {
+		this.selectedShape = selectedShape;
+	}
+	
+	
 }

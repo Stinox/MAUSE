@@ -9,29 +9,46 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 
 public class ButtonPanel extends JPanel {
+	
+	private Color selectedColor = new Color(0,162,255);
 
 	public ButtonPanel(DrawingPanel drawingPanel) {
 		super();
 		// Add a button to the panel . The argument to the JButton constructor
 		// will become the text on the button .
-		JButton rect = new JButton("Rectangle");
+		ToolButton rect = new ToolButton("Rectangle", Tool.RECTANGLE);
 		this.add(rect);
 		rect.addActionListener(new ButtonHandler(drawingPanel));
-		JButton ellipse = new JButton("Ellipse");
+		drawingPanel.addButton(rect);
+		rect.setBackground(selectedColor);
+		
+		ToolButton ellipse = new ToolButton("Ellipse", Tool.ELLIPSE);
 		this.add(ellipse);
 		ellipse.addActionListener(new ButtonHandler(drawingPanel));
-		JButton line = new JButton("Line");
+		drawingPanel.addButton(ellipse);
+		
+		ToolButton line = new ToolButton("Line", Tool.LINE);
 		this.add(line);
 		line.addActionListener(new ButtonHandler(drawingPanel));
-		JButton delete = new JButton("Delete");
+		drawingPanel.addButton(line);
+		
+		ToolButton hand = new ToolButton("Move", Tool.HAND);
+		this.add(hand);
+		hand.addActionListener(new ButtonHandler(drawingPanel));
+		drawingPanel.addButton(hand);
+		
+		ToolButton delete = new ToolButton("Delete", Tool.DELETE);
 		this.add(delete);
 		delete.addActionListener(new ButtonHandler(drawingPanel));
+		drawingPanel.addButton(delete);
+		
 		JTextField sliderText = new JTextField("003");
 		JSlider slider = new JSlider();
 		slider.setValue(3);
 		this.add(slider);
 		this.add(sliderText);
 		slider.addChangeListener(new SliderHandler(drawingPanel, slider, sliderText));
+		
 		JButton black = new JButton("Black");
 		black.setBackground(Color.BLACK);
 		this.add(black);
@@ -49,7 +66,7 @@ public class ButtonPanel extends JPanel {
 		JButton changeFillColor = new JButton("Fill");
 		changeStrokeColor.addActionListener(new ButtonHandler(drawingPanel));
 		changeFillColor.addActionListener(new ButtonHandler(drawingPanel));
-		changeStrokeColor.setBackground(new Color(0,162,255));
+		changeStrokeColor.setBackground(selectedColor);
 		changeStrokeColor.setForeground(Color.BLACK);
 		drawingPanel.setFill(changeFillColor);
 		drawingPanel.setStroke(changeStrokeColor);

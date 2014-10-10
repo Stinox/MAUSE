@@ -11,7 +11,7 @@ public class Window extends JFrame {
 		// ’super ’ calls a function inherited from the parent class ( JFrame )
 		super();
 		super.setTitle(" Mega Awesome Uber Super Epic - MAUSE ");
-		super.setSize(new Dimension(1024, 768));
+		super.setSize(new Dimension(1600, 900));
 		// Make sure the window appears in the middle of your screen
 		super.setLocationRelativeTo(null);
 		// Determines what should happen when the frame is closed

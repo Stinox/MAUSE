@@ -5,6 +5,6 @@ public enum Tool {
 	RECTANGLE,
 	ELLIPSE,
 	LINE,
-	DELETE
-	
+	DELETE,
+	HAND
 }

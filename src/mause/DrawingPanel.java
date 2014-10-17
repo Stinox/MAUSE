@@ -29,8 +29,8 @@ public class DrawingPanel extends JPanel {
 	private ArrayList<ToolButton> toolButtons = new ArrayList<ToolButton>();
 	private Color selectedColor = new Color(0, 162, 255);
 	private MyShape selectedShape;
-	private Point mouse;
-	private Point shape;
+	private Point startMouseCoor;
+	private Point startShapeCoor;
 	
 	public MyShape getLastDrawn() {
 		return lastDrawn;
@@ -61,12 +61,12 @@ public class DrawingPanel extends JPanel {
 	
 	private void drawBorder(Graphics2D g2d){
 		g2d.setColor(Color.BLACK);
-		float dash[] = { 10f };
-		g2d.setStroke(new BasicStroke(3.0f, BasicStroke.CAP_BUTT,
+		float dash[] = { 5f };
+		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
 				BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
 		Rectangle2D.Double border = new Rectangle2D.Double(selectedShape.startx
 				- selectedShape.borderPadding - strokeSize / 2, selectedShape.starty - selectedShape.borderPadding
-				- strokeSize / 2, selectedShape.width + selectedShape.borderPadding * 2 + strokeSize, selectedShape.height + selectedShape.borderPadding * 2 + strokeSize);
+				- strokeSize / 2, selectedShape.width + selectedShape.borderPadding * 2 + strokeSize -1, selectedShape.height + selectedShape.borderPadding * 2 + strokeSize - 1);
 		g2d.draw(border);
 	}
 	
@@ -93,6 +93,7 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	private void drawLine(Point point){
+		selectedShape = null;
 		MyLine line = new MyLine();
 		line.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(line);
@@ -105,6 +106,7 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	private void drawRect(Point point){
+		selectedShape = null;
 		MyRectangle rect = new MyRectangle();
 		rect.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(rect);
@@ -117,6 +119,7 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	private void drawEllipse(Point point){
+		selectedShape = null;
 		MyEllipse ellipse = new MyEllipse();
 		ellipse.setCoords(point.x, point.y, point.x, point.y);
 		shapesList.add(ellipse);
@@ -148,12 +151,13 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	public void moveShape(Point point){
-		if(mouse == null || shape == null){
-			mouse = point;
-			shape = new Point(selectedShape.getX1(), selectedShape.getY1());
+		if(startMouseCoor == null || startShapeCoor == null){
+			startMouseCoor = point;
+			startShapeCoor = new Point(selectedShape.getX1(), selectedShape.getY1());
 		} else {
-			Point diff = getManhattanDistance(mouse, point);
-			//selectedShape.setCoords(shape.x + diff.x, shape.y + diff.y, selectedShape.getWidth(), selectedShape.getHeight());
+			Point diff = getManhattanDistance(startMouseCoor, point);
+			selectedShape.setCoords(startShapeCoor.x + diff.x, startShapeCoor.y + diff.y, startShapeCoor.x+selectedShape.getWidth()+diff.x,
+									startShapeCoor.y+selectedShape.getHeight()+diff.y);
 		}
 		repaint();
 	}
@@ -165,6 +169,8 @@ public class DrawingPanel extends JPanel {
 	private void delete(Point point){
 		for(int i = shapesList.size() - 1; i >= 0; i--){
 			if(shapesList.get(i).contains(point)){
+				if(shapesList.get(i) == selectedShape)
+					selectedShape = null;
 				shapesList.remove(i);
 				break;
 			}
@@ -240,8 +246,8 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	public void stopMove(){
-		mouse = null;
-		shape = null;
+		startMouseCoor = null;
+		startShapeCoor = null;
 	}
 	
 	public MyShape getSelectedShape(){

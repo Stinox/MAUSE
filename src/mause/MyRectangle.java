@@ -28,9 +28,4 @@ public class MyRectangle extends MyShape {
 		g.setColor(strokeColor);
 		g.draw(rect);
 	}
-
-	public boolean contains(Point point) {
-		return (point.x >= startx && point.x <= startx + width
-				&& point.y >= starty && point.y <= starty + height);
-	}
 }

@@ -16,7 +16,10 @@ public abstract class MyShape {
 	protected boolean fill;
 	protected int borderPadding = 3;
 	
-	public abstract boolean contains(Point point);
+	public boolean contains(Point point){
+		return (point.x >= startx - strokeSize/2 && point.x <= startx + width + strokeSize/2
+				&& point.y >= starty - strokeSize/2 && point.y <= starty + height + strokeSize/2);
+	}
 	
 	public MyShape() {
 		this(0, 0, 0, 0);

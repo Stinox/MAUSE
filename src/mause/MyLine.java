@@ -24,8 +24,4 @@ public class MyLine extends MyShape {
 		g.setColor(strokeColor);
 		g.draw(line);
 	}
-	
-	public boolean contains(Point point){
-		return (point.x >= startx && point.x <= startx+width && point.y >= starty && point.y <= starty+height);
-	}
 }

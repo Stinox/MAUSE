@@ -30,8 +30,4 @@ public class MyEllipse extends MyShape {
 		g.draw(ellipse);
 		
 	}
-	
-	public boolean contains(Point point){
-		return (point.x >= startx && point.x <= startx+width && point.y >= starty && point.y <= starty+height);
-	}
 }

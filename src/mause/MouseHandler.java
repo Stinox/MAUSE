@@ -36,9 +36,12 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		drawingPanel.selectShape(drawingPanel.getLastDrawn());
-		drawingPanel.setLastDrawn(null);
+		if(drawingPanel.getLastDrawn() != null){
+			drawingPanel.setSelectedShape(drawingPanel.getLastDrawn());
+			drawingPanel.setLastDrawn(null);
+		}
 		drawingPanel.stopMove();
+		drawingPanel.repaint();
 	}
 
 	@Override

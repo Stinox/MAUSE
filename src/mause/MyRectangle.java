@@ -27,16 +27,6 @@ public class MyRectangle extends MyShape {
 		}
 		g.setColor(strokeColor);
 		g.draw(rect);
-		if (isSelected) {
-			g.setColor(Color.BLACK);
-			float dash[] = { 10f };
-			g.setStroke(new BasicStroke(3.0f, BasicStroke.CAP_BUTT,
-					BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
-			Rectangle2D.Double border = new Rectangle2D.Double(startx
-					- borderPadding - strokeSize / 2, starty - borderPadding
-					- strokeSize / 2, width + borderPadding * 2 + strokeSize, height + borderPadding * 2 + strokeSize);
-			g.draw(border);
-		}
 	}
 
 	public boolean contains(Point point) {

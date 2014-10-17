@@ -1,9 +1,11 @@
 package mause;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +55,19 @@ public class DrawingPanel extends JPanel {
 		Graphics2D g2d = (Graphics2D) g;
 		for (MyShape s : shapesList)
 			s.draw(g2d);
+		if(selectedShape != null)
+			drawBorder(g2d);
+	}
+	
+	private void drawBorder(Graphics2D g2d){
+		g2d.setColor(Color.BLACK);
+		float dash[] = { 10f };
+		g2d.setStroke(new BasicStroke(3.0f, BasicStroke.CAP_BUTT,
+				BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
+		Rectangle2D.Double border = new Rectangle2D.Double(selectedShape.startx
+				- selectedShape.borderPadding - strokeSize / 2, selectedShape.starty - selectedShape.borderPadding
+				- strokeSize / 2, selectedShape.width + selectedShape.borderPadding * 2 + strokeSize, selectedShape.height + selectedShape.borderPadding * 2 + strokeSize);
+		g2d.draw(border);
 	}
 	
 	public void draw(Point point){
@@ -121,12 +136,11 @@ public class DrawingPanel extends JPanel {
 			boolean found = false;
 			for(int i = shapesList.size()-1; i >= 0 && !found; i--){
 				if(shapesList.get(i).contains(point)){
-					selectShape(shapesList.get(i));
+					selectedShape = shapesList.get(i);
 					found = true;
 				}
 			}
 			if (!found){
-				selectedShape.setSelected(false);
 				selectedShape = null;
 			}
 			repaint();
@@ -139,7 +153,7 @@ public class DrawingPanel extends JPanel {
 			shape = new Point(selectedShape.getX1(), selectedShape.getY1());
 		} else {
 			Point diff = getManhattanDistance(mouse, point);
-			selectedShape.setCoords(shape.x + diff.x, shape.y + diff.y, selectedShape.getWidth(), selectedShape.getHeight());
+			//selectedShape.setCoords(shape.x + diff.x, shape.y + diff.y, selectedShape.getWidth(), selectedShape.getHeight());
 		}
 		repaint();
 	}
@@ -158,6 +172,7 @@ public class DrawingPanel extends JPanel {
 		repaint();
 	}
 	
+	// Resizes shape while drawing
 	public void changeLastDrawn(Point point){
 		if(lastDrawn != null && selectedTool != Tool.DELETE){
 			lastDrawn.setCoords(lastDrawn.x1, lastDrawn.y1, point.x, point.y);
@@ -206,19 +221,6 @@ public class DrawingPanel extends JPanel {
 			stroke.setBackground(null);
 			break;
 		}
-	}
-	
-	public void selectShape(MyShape shape){
-		selectedShape = shape;
-		for(MyShape s : shapesList){
-			if(s == shape){
-				s.setSelected(true);
-			}
-			else {
-				s.setSelected(false);
-			}
-		}
-		repaint();
 	}
 
 	public void setStroke(JButton stroke) {

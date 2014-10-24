@@ -6,5 +6,6 @@ public enum Tool {
 	ELLIPSE,
 	LINE,
 	DELETE,
-	HAND
+	MOVE,
+	RESIZE
 }

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class DrawingPanel extends JPanel {
 	private MyShape selectedShape;
 	private Point startMouseCoor;
 	private Point startShapeCoor;
+	private boolean isResizing = false;
 	
 	public MyShape getLastDrawn() {
 		return lastDrawn;
@@ -67,7 +69,7 @@ public class DrawingPanel extends JPanel {
 		Rectangle2D.Double border = new Rectangle2D.Double(selectedShape.startx
 				- selectedShape.borderPadding - strokeSize / 2, selectedShape.starty - selectedShape.borderPadding
 				- strokeSize / 2, selectedShape.width + selectedShape.borderPadding * 2 + strokeSize -1, selectedShape.height + selectedShape.borderPadding * 2 + strokeSize - 1);
-		g2d.draw(border);
+		g2d.draw(border);		
 	}
 	
 	public void draw(Point point){
@@ -81,7 +83,10 @@ public class DrawingPanel extends JPanel {
 		case ELLIPSE:
 			drawEllipse(point);
 			break;
-		case HAND:
+		case MOVE:
+			hand(point);
+			break;
+		case RESIZE:
 			hand(point);
 			break;
 		case DELETE:
@@ -131,9 +136,13 @@ public class DrawingPanel extends JPanel {
 		lastDrawn = ellipse;
 	}
 	
-	private void hand(Point point){
-		if(selectedShape != null && selectedShape.contains(point)){
-			moveShape(point);
+	public void hand(Point point){
+		if(selectedShape != null && (selectedShape.contains(point) || isResizing)){
+			isResizing = true;
+			if(selectedTool == Tool.MOVE)
+				moveShape(point);
+			else
+				resizeShape(point);
 		}
 		else {
 			boolean found = false;
@@ -150,7 +159,7 @@ public class DrawingPanel extends JPanel {
 		}
 	}
 	
-	public void moveShape(Point point){
+	private void moveShape(Point point){
 		if(startMouseCoor == null || startShapeCoor == null){
 			startMouseCoor = point;
 			startShapeCoor = new Point(selectedShape.getX1(), selectedShape.getY1());
@@ -158,6 +167,19 @@ public class DrawingPanel extends JPanel {
 			Point diff = getManhattanDistance(startMouseCoor, point);
 			selectedShape.setCoords(startShapeCoor.x + diff.x, startShapeCoor.y + diff.y, startShapeCoor.x+selectedShape.getWidth()+diff.x,
 									startShapeCoor.y+selectedShape.getHeight()+diff.y);
+		}
+		repaint();
+	}
+	
+	private void resizeShape(Point point){
+		if(startMouseCoor == null || startShapeCoor == null){
+			startMouseCoor = point;
+			startShapeCoor = new Point(selectedShape.getX1(), selectedShape.getY1());
+		} else {
+			Point diff = getManhattanDistance(startMouseCoor, point);
+			selectedShape.setCoords(startShapeCoor.x, startShapeCoor.y, startShapeCoor.x+selectedShape.getWidth()+diff.x,
+									startShapeCoor.y+selectedShape.getHeight()+diff.y);
+			startMouseCoor = point;
 		}
 		repaint();
 	}
@@ -248,6 +270,7 @@ public class DrawingPanel extends JPanel {
 	public void stopMove(){
 		startMouseCoor = null;
 		startShapeCoor = null;
+		isResizing = false;
 	}
 	
 	public MyShape getSelectedShape(){

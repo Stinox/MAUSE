@@ -22,8 +22,11 @@ public class ButtonHandler implements ActionListener {
 		else if(e.getActionCommand() == "Line"){
 			drawingPanel.setSelectedTool(Tool.LINE);
 		} 
-		else if (e.getActionCommand() == "Move"){
-			drawingPanel.setSelectedTool(Tool.HAND);
+		else if(e.getActionCommand() == "Move"){
+			drawingPanel.setSelectedTool(Tool.MOVE);
+		}
+		else if(e.getActionCommand() == "Resize"){
+			drawingPanel.setSelectedTool(Tool.RESIZE);
 		}
 		else if(e.getActionCommand() == "Delete"){
 			drawingPanel.setSelectedTool(Tool.DELETE);

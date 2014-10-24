@@ -2,6 +2,7 @@ package mause;
 
 import java.awt.Color;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ public class ButtonPanel extends JPanel {
 		rect.addActionListener(new ButtonHandler(drawingPanel));
 		drawingPanel.addButton(rect);
 		rect.setBackground(selectedColor);
+		rect.setIcon(new ImageIcon(MauseIcon.rect.getIcon()));
 		
 		ToolButton ellipse = new ToolButton("Ellipse", Tool.ELLIPSE);
 		this.add(ellipse);
@@ -32,10 +34,15 @@ public class ButtonPanel extends JPanel {
 		line.addActionListener(new ButtonHandler(drawingPanel));
 		drawingPanel.addButton(line);
 		
-		ToolButton hand = new ToolButton("Move", Tool.HAND);
-		this.add(hand);
-		hand.addActionListener(new ButtonHandler(drawingPanel));
-		drawingPanel.addButton(hand);
+		ToolButton move = new ToolButton("Move", Tool.MOVE);
+		this.add(move);
+		move.addActionListener(new ButtonHandler(drawingPanel));
+		drawingPanel.addButton(move);
+		
+		ToolButton resize = new ToolButton("Resize", Tool.RESIZE);
+		this.add(resize);
+		resize.addActionListener(new ButtonHandler(drawingPanel));
+		drawingPanel.addButton(resize);
 		
 		ToolButton delete = new ToolButton("Delete", Tool.DELETE);
 		this.add(delete);

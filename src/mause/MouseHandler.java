@@ -48,7 +48,7 @@ public class MouseHandler implements MouseListener, MouseMotionListener {
 	public void mouseDragged(MouseEvent e) {
 		drawingPanel.changeLastDrawn(e.getPoint());
 		if(drawingPanel.getSelectedShape() != null)
-			drawingPanel.moveShape(e.getPoint());
+			drawingPanel.hand(e.getPoint());
 		
 	}
 

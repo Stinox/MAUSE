@@ -5,6 +5,11 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 
 public class ToolButton extends JButton{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Tool tool;
 
 	public ToolButton() {
@@ -27,8 +32,8 @@ public class ToolButton extends JButton{
 		// TODO Auto-generated constructor stub
 	}
 
-	public ToolButton(String text, Tool tool) {
-		super(text);
+	public ToolButton(Icon icon, Tool tool) {
+		super(icon);
 		this.tool = tool;
 		// TODO Auto-generated constructor stub
 	}

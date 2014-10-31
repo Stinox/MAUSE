@@ -11,42 +11,48 @@ import javax.swing.JTextField;
 
 public class ButtonPanel extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private Color selectedColor = new Color(0,162,255);
+	
+	private int[] colors = {0x000000, 0xff00ff, 0x0000ff, 0x00ffff, 0x00ff00, 0xffff00, 0xff0000, 0xffffff}; 
 
 	public ButtonPanel(DrawingPanel drawingPanel) {
 		super();
 		// Add a button to the panel . The argument to the JButton constructor
 		// will become the text on the button .
-		ToolButton rect = new ToolButton("Rectangle", Tool.RECTANGLE);
+		ToolButton rect = new ToolButton(new ImageIcon(MauseIcon.rect.getIcon()), Tool.RECTANGLE);
 		this.add(rect);
-		rect.addActionListener(new ButtonHandler(drawingPanel));
+		rect.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(rect);
 		rect.setBackground(selectedColor);
-		rect.setIcon(new ImageIcon(MauseIcon.rect.getIcon()));
 		
-		ToolButton ellipse = new ToolButton("Ellipse", Tool.ELLIPSE);
+		ToolButton ellipse = new ToolButton(new ImageIcon(MauseIcon.ellipse.getIcon()), Tool.ELLIPSE);
 		this.add(ellipse);
-		ellipse.addActionListener(new ButtonHandler(drawingPanel));
+		ellipse.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(ellipse);
 		
-		ToolButton line = new ToolButton("Line", Tool.LINE);
+		ToolButton line = new ToolButton(new ImageIcon(MauseIcon.line.getIcon()), Tool.LINE);
 		this.add(line);
-		line.addActionListener(new ButtonHandler(drawingPanel));
+		line.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(line);
 		
-		ToolButton move = new ToolButton("Move", Tool.MOVE);
+		ToolButton move = new ToolButton(new ImageIcon(MauseIcon.move.getIcon()), Tool.MOVE);
 		this.add(move);
-		move.addActionListener(new ButtonHandler(drawingPanel));
+		move.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(move);
 		
-		ToolButton resize = new ToolButton("Resize", Tool.RESIZE);
+		ToolButton resize = new ToolButton(new ImageIcon(MauseIcon.resize.getIcon()), Tool.RESIZE);
 		this.add(resize);
-		resize.addActionListener(new ButtonHandler(drawingPanel));
+		resize.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(resize);
 		
-		ToolButton delete = new ToolButton("Delete", Tool.DELETE);
+		ToolButton delete = new ToolButton(new ImageIcon(MauseIcon.delete.getIcon()), Tool.DELETE);
 		this.add(delete);
-		delete.addActionListener(new ButtonHandler(drawingPanel));
+		delete.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(delete);
 		
 		JTextField sliderText = new JTextField("003");
@@ -56,23 +62,16 @@ public class ButtonPanel extends JPanel {
 		this.add(sliderText);
 		slider.addChangeListener(new SliderHandler(drawingPanel, slider, sliderText));
 		
-		JButton black = new JButton("Black");
-		black.setBackground(Color.BLACK);
-		this.add(black);
-		black.addActionListener(new ButtonHandler(drawingPanel));
-		JButton red = new JButton("Red");
-		red.setBackground(Color.RED);
-		this.add(red);
-		red.addActionListener(new ButtonHandler(drawingPanel));
-		JButton blue = new JButton("Blue");
-		blue.setBackground(Color.BLUE);
-		this.add(blue);
-		blue.addActionListener(new ButtonHandler(drawingPanel));
+		for(int color : colors){
+			ColorButton button = new ColorButton(new Color(color));
+			this.add(button);
+			button.addActionListener(new ColorButtonHandler(drawingPanel));
+		}
 		
 		JButton changeStrokeColor = new JButton("Stroke");
 		JButton changeFillColor = new JButton("Fill");
-		changeStrokeColor.addActionListener(new ButtonHandler(drawingPanel));
-		changeFillColor.addActionListener(new ButtonHandler(drawingPanel));
+		changeStrokeColor.addActionListener(new DrawButtonHandler(drawingPanel));
+		changeFillColor.addActionListener(new DrawButtonHandler(drawingPanel));
 		changeStrokeColor.setBackground(selectedColor);
 		changeStrokeColor.setForeground(Color.BLACK);
 		drawingPanel.setFill(changeFillColor);

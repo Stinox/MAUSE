@@ -8,6 +8,11 @@ import javax.imageio.ImageIO;
 public class MauseIcon {
 	
 	public static MauseIcon rect = new MauseIcon("/icons/rectangle.png");
+	public static MauseIcon ellipse = new MauseIcon("/icons/ellipse.png");
+	public static MauseIcon line = new MauseIcon("/icons/line.png");
+	public static MauseIcon move = new MauseIcon("/icons/move.png");
+	public static MauseIcon resize = new MauseIcon("/icons/resize.png");
+	public static MauseIcon delete = new MauseIcon("/icons/delete.png");
 	
 	private BufferedImage icon;
 	

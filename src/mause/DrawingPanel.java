@@ -2,9 +2,11 @@ package mause;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,12 @@ public class DrawingPanel extends JPanel {
 	
 	public void draw(Point point){
 		switch (selectedTool) {
+		case IMAGE:
+			createImage(point);
+			break;
+		case TEXT:
+			createText(point);
+			break;
 		case LINE:
 			drawLine(point);
 			break;
@@ -99,6 +107,22 @@ public class DrawingPanel extends JPanel {
 		default:
 			break;
 		}
+	}
+	
+	private void createImage(Point point){
+		selectedShape = null;
+		MyImage image = new MyImage(point.x, point.y);
+		if(image.getImage() != null){
+			shapesList.add(image);
+			repaint();
+		}
+	}
+	
+	private void createText(Point point){
+		selectedShape = null;
+		MyText text = new MyText(point.x, point.y);
+		shapesList.add(text);
+		repaint();
 	}
 	
 	private void drawLine(Point point){
@@ -222,7 +246,22 @@ public class DrawingPanel extends JPanel {
 				button.setBackground(null);
 			}
 		}
+		switch (tool) {
+		case MOVE:
+			this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+			break;
+		case RESIZE:
+			this.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+			break;
+		case DELETE:
+			this.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(MauseIcon.delete.getIcon(), new Point(16,16), "deleteCursor"));
+			break;
+		default:
+			this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			break;
+		}
 	}
+
 	
 	public void setStrokeSize(int thickness){
 		strokeSize = thickness;

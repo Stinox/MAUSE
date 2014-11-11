@@ -22,8 +22,16 @@ public class ButtonPanel extends JPanel {
 
 	public ButtonPanel(DrawingPanel drawingPanel) {
 		super();
-		// Add a button to the panel . The argument to the JButton constructor
-		// will become the text on the button .
+		ToolButton image = new ToolButton(new ImageIcon(MauseIcon.move.getIcon()), Tool.IMAGE);
+		this.add(image);
+		image.addActionListener(new ToolButtonHandler(drawingPanel));
+		drawingPanel.addButton(image);
+		
+		ToolButton text = new ToolButton(new ImageIcon(MauseIcon.resize.getIcon()), Tool.TEXT);
+		this.add(text);
+		text.addActionListener(new ToolButtonHandler(drawingPanel));
+		drawingPanel.addButton(text);
+		
 		ToolButton rect = new ToolButton(new ImageIcon(MauseIcon.rect.getIcon()), Tool.RECTANGLE);
 		this.add(rect);
 		rect.addActionListener(new ToolButtonHandler(drawingPanel));

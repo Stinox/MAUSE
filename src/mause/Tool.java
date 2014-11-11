@@ -2,6 +2,8 @@ package mause;
 
 public enum Tool {
 
+	IMAGE,
+	TEXT,
 	RECTANGLE,
 	ELLIPSE,
 	LINE,

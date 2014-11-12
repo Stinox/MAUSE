@@ -24,7 +24,6 @@ public class ColorPalette implements ActionListener {
 			dialog = new JDialog();
 			dialog.setAlwaysOnTop(true);
 			dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
-			dialog.setLocationRelativeTo(null);
 			colorChooser = new JColorChooser();
 			dialog.add(colorChooser);
 			JButton button = new JButton("OK");

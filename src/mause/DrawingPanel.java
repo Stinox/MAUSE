@@ -1,13 +1,11 @@
 package mause;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,20 +62,10 @@ public class DrawingPanel extends JPanel {
 		for (MyShape s : shapesList)
 			s.draw(g2d);
 		if(selectedShape != null)
-			drawBorder(g2d);
+			selectedShape.drawBorder(g2d);
 	}
 	
-	private void drawBorder(Graphics2D g2d){
-		g2d.setColor(Color.BLACK);
-		float dash[] = { 5f };
-		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
-				BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
-		Rectangle2D.Double border = new Rectangle2D.Double(selectedShape.startx
-				- selectedShape.borderPadding - strokeSize / 2, selectedShape.starty - selectedShape.borderPadding
-				- strokeSize / 2, selectedShape.width + selectedShape.borderPadding * 2 + strokeSize -1, selectedShape.height + selectedShape.borderPadding * 2 + strokeSize - 1);
-		g2d.draw(border);		
-	}
-	
+
 	public void draw(Point point){
 		switch (selectedTool) {
 		case IMAGE:
@@ -114,14 +102,17 @@ public class DrawingPanel extends JPanel {
 		MyImage image = new MyImage(point.x, point.y);
 		if(image.getImage() != null){
 			shapesList.add(image);
+			selectedShape = image;
 			repaint();
 		}
 	}
 	
 	private void createText(Point point){
 		selectedShape = null;
-		MyText text = new MyText(point.x, point.y);
+		MyText text = new MyText(point.x, point.y, this);
 		shapesList.add(text);
+		selectedShape = text;
+		text.setStrokeColor(strokeColor);
 		repaint();
 	}
 	

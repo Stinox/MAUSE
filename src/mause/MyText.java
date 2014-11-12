@@ -1,7 +1,10 @@
 package mause;
 
+import java.awt.BasicStroke;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,17 +18,27 @@ public class MyText extends MyShape implements ActionListener {
 	private String text =  "sample text";
 	private JDialog dialog;
 	private JTextField textField;
+	private DrawingPanel dp;
+	private int fontSize = 20;
+	private JTextField fontSizeField;
 	
-	public MyText(int x1, int y1){
+	public MyText(int x1, int y1, DrawingPanel dp){
 		super.x1 = x1;
 		super.y1 = y1;
+		this.dp = dp;
 		
 		dialog = new JDialog();
 		dialog.setTitle("Enter your text");
-		textField = new JTextField();
+		
+		textField = new JTextField("Your Text");
 		dialog.add(textField);
+		
+		fontSizeField = new JTextField("12");
+		dialog.add(fontSizeField);
+		
 		JButton button = new JButton("OK");
 		dialog.add(button);
+		
 		button.addActionListener(this);
 		dialog.setSize(new Dimension(500,100));
 		dialog.setAlwaysOnTop(true);
@@ -42,10 +55,21 @@ public class MyText extends MyShape implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		text = textField.getText();
+		fontSize = Integer.parseInt(fontSizeField.getText());
 		dialog.dispose();
+		dp.repaint();
 	}
 	
 	public void draw(Graphics2D g2d){
+		width = text.length() * (fontSize/2);
+		height = fontSize;
+		startx = x1;
+		starty = y1 - fontSize + 2;
+		g2d.setStroke(new BasicStroke(strokeSize));
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setFont(new Font("Arial", Font.PLAIN, fontSize));
+		g2d.setColor(strokeColor);
 		g2d.drawString(text, x1, y1);
 	}
 }

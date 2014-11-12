@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
 
 public abstract class MyShape {
 
@@ -42,6 +43,17 @@ public abstract class MyShape {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 	}
 	
+	public void drawBorder(Graphics2D g2d){
+		g2d.setColor(Color.BLACK);
+		float dash[] = { 5f };
+		g2d.setStroke(new BasicStroke(1.0f, BasicStroke.CAP_BUTT,
+				BasicStroke.JOIN_MITER, 10.0f, dash, 0.0f));
+		Rectangle2D.Double border = new Rectangle2D.Double(startx
+				- borderPadding - strokeSize / 2, starty - borderPadding
+				- strokeSize / 2, width + borderPadding * 2 + strokeSize -1, height + borderPadding * 2 + strokeSize - 1);
+		g2d.draw(border);		
+	}
+		
 	public void setStrokeSize(int thickness){
 		strokeSize = thickness;
 	}

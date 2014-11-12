@@ -22,12 +22,15 @@ public class ButtonPanel extends JPanel {
 
 	public ButtonPanel(DrawingPanel drawingPanel) {
 		super();
-		ToolButton image = new ToolButton(new ImageIcon(MauseIcon.move.getIcon()), Tool.IMAGE);
+		this.setBackground(new Color(0x00216E));
+	
+		
+		ToolButton image = new ToolButton(new ImageIcon(MauseIcon.image.getIcon()), Tool.IMAGE);
 		this.add(image);
 		image.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(image);
 		
-		ToolButton text = new ToolButton(new ImageIcon(MauseIcon.resize.getIcon()), Tool.TEXT);
+		ToolButton text = new ToolButton(new ImageIcon(MauseIcon.text.getIcon()), Tool.TEXT);
 		this.add(text);
 		text.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(text);
@@ -68,6 +71,7 @@ public class ButtonPanel extends JPanel {
 		slider.setValue(3);
 		this.add(slider);
 		this.add(sliderText);
+		slider.setBackground(new Color(0x00216E));
 		slider.addChangeListener(new SliderHandler(drawingPanel, slider, sliderText));
 		
 		for(int color : colors){
@@ -75,6 +79,10 @@ public class ButtonPanel extends JPanel {
 			this.add(button);
 			button.addActionListener(new ColorButtonHandler(drawingPanel));
 		}
+		
+		JButton colorPalette = new JButton("Color palette");
+		this.add(colorPalette);
+		colorPalette.addActionListener(new ColorPalette(drawingPanel));
 		
 		JButton changeStrokeColor = new JButton("Stroke");
 		JButton changeFillColor = new JButton("Fill");
@@ -86,9 +94,5 @@ public class ButtonPanel extends JPanel {
 		drawingPanel.setStroke(changeStrokeColor);
 		this.add(changeStrokeColor);
 		this.add(changeFillColor);
-		
-		JCheckBox fill = new JCheckBox("fill (on/off)");
-		drawingPanel.setFillCheck(fill);
-		add(fill);
 	}
 }

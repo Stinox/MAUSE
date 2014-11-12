@@ -4,7 +4,6 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -22,8 +21,6 @@ public class ButtonPanel extends JPanel {
 
 	public ButtonPanel(DrawingPanel drawingPanel) {
 		super();
-		this.setBackground(new Color(0x00216E));
-	
 		
 		ToolButton image = new ToolButton(new ImageIcon(MauseIcon.image.getIcon()), Tool.IMAGE);
 		this.add(image);
@@ -71,7 +68,6 @@ public class ButtonPanel extends JPanel {
 		slider.setValue(3);
 		this.add(slider);
 		this.add(sliderText);
-		slider.setBackground(new Color(0x00216E));
 		slider.addChangeListener(new SliderHandler(drawingPanel, slider, sliderText));
 		
 		for(int color : colors){

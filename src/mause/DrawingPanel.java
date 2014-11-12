@@ -6,12 +6,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 	
 public class DrawingPanel extends JPanel {
 	
@@ -30,7 +34,6 @@ public class DrawingPanel extends JPanel {
 	private ColorChangeState currentCCS;
 	private JButton stroke;
 	private JButton fill;
-	private JCheckBox fillCheck;
 	private ArrayList<ToolButton> toolButtons = new ArrayList<ToolButton>();
 	private Color selectedColor = new Color(0, 162, 255);
 	private MyShape selectedShape;
@@ -48,11 +51,17 @@ public class DrawingPanel extends JPanel {
 
 	public DrawingPanel() {
 		super();
+		this.requestFocus();
 		addMouseListener(new MouseHandler(this));
 		addMouseMotionListener(new MouseHandler(this));
 		selectedTool = Tool.RECTANGLE;
 		currentCCS = ColorChangeState.STROKE;
 		super.setBackground(Color.WHITE);
+		InputMap inputMap = this.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+		ActionMap actionMap = this.getActionMap();
+		inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_T, 0), "timer");
+		actionMap.put("timer", new KeyAction("timer"));
+		
 	}
 
 	@Override
@@ -124,7 +133,6 @@ public class DrawingPanel extends JPanel {
 		line.setStrokeSize(strokeSize);
 		line.setStrokeColor(strokeColor);
 		line.setFillColor(fillColor);
-		line.setFill(fillCheck.isSelected());
 		repaint();
 		lastDrawn = line;
 	}
@@ -137,7 +145,6 @@ public class DrawingPanel extends JPanel {
 		rect.setStrokeSize(strokeSize);
 		rect.setStrokeColor(strokeColor);
 		rect.setFillColor(fillColor);
-		rect.setFill(fillCheck.isSelected());
 		repaint();
 		lastDrawn = rect;
 	}
@@ -150,7 +157,6 @@ public class DrawingPanel extends JPanel {
 		ellipse.setStrokeSize(strokeSize);
 		ellipse.setStrokeColor(strokeColor);
 		ellipse.setFillColor(fillColor);
-		ellipse.setFill(fillCheck.isSelected());
 		repaint();
 		lastDrawn = ellipse;
 	}
@@ -291,10 +297,6 @@ public class DrawingPanel extends JPanel {
 
 	public void setFill(JButton fill) {
 		this.fill = fill;
-	}
-
-	public void setFillCheck(JCheckBox fillCheck) {
-		this.fillCheck = fillCheck;
 	}
 	
 	public void addButton(ToolButton button) {

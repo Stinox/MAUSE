@@ -22,16 +22,6 @@ public class ButtonPanel extends JPanel {
 	public ButtonPanel(DrawingPanel drawingPanel) {
 		super();
 		
-		ToolButton image = new ToolButton(new ImageIcon(MauseIcon.image.getIcon()), Tool.IMAGE);
-		this.add(image);
-		image.addActionListener(new ToolButtonHandler(drawingPanel));
-		drawingPanel.addButton(image);
-		
-		ToolButton text = new ToolButton(new ImageIcon(MauseIcon.text.getIcon()), Tool.TEXT);
-		this.add(text);
-		text.addActionListener(new ToolButtonHandler(drawingPanel));
-		drawingPanel.addButton(text);
-		
 		ToolButton rect = new ToolButton(new ImageIcon(MauseIcon.rect.getIcon()), Tool.RECTANGLE);
 		this.add(rect);
 		rect.addActionListener(new ToolButtonHandler(drawingPanel));
@@ -48,6 +38,16 @@ public class ButtonPanel extends JPanel {
 		line.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(line);
 		
+		ToolButton image = new ToolButton(new ImageIcon(MauseIcon.image.getIcon()), Tool.IMAGE);
+		this.add(image);
+		image.addActionListener(new ToolButtonHandler(drawingPanel));
+		drawingPanel.addButton(image);
+		
+		ToolButton text = new ToolButton(new ImageIcon(MauseIcon.text.getIcon()), Tool.TEXT);
+		this.add(text);
+		text.addActionListener(new ToolButtonHandler(drawingPanel));
+		drawingPanel.addButton(text);
+		
 		ToolButton move = new ToolButton(new ImageIcon(MauseIcon.move.getIcon()), Tool.MOVE);
 		this.add(move);
 		move.addActionListener(new ToolButtonHandler(drawingPanel));
@@ -58,11 +58,6 @@ public class ButtonPanel extends JPanel {
 		resize.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(resize);
 		
-		ToolButton delete = new ToolButton(new ImageIcon(MauseIcon.delete.getIcon()), Tool.DELETE);
-		this.add(delete);
-		delete.addActionListener(new ToolButtonHandler(drawingPanel));
-		drawingPanel.addButton(delete);
-		
 		ToolButton foreground = new ToolButton(new ImageIcon(MauseIcon.foreground.getIcon()), Tool.FOREGROUND);
 		this.add(foreground);
 		foreground.addActionListener(new ToolButtonHandler(drawingPanel));
@@ -70,6 +65,11 @@ public class ButtonPanel extends JPanel {
 		ToolButton background = new ToolButton(new ImageIcon(MauseIcon.background.getIcon()), Tool.BACKGROUND);
 		this.add(background);
 		background.addActionListener(new ToolButtonHandler(drawingPanel));
+		
+		ToolButton delete = new ToolButton(new ImageIcon(MauseIcon.delete.getIcon()), Tool.DELETE);
+		this.add(delete);
+		delete.addActionListener(new ToolButtonHandler(drawingPanel));
+		drawingPanel.addButton(delete);
 		
 		JTextField sliderText = new JTextField("003");
 		JSlider slider = new JSlider();

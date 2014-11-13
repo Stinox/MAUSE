@@ -11,5 +11,6 @@ public enum Tool {
 	MOVE,
 	RESIZE,
 	FOREGROUND,
-	BACKGROUND
+	BACKGROUND,
+	EDIT
 }

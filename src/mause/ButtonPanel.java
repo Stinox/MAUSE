@@ -81,6 +81,13 @@ public class ButtonPanel extends JPanel {
 		drawingPanel.addButton(delete);
 		delete.setToolTipText("Select this tool and click on a shape to remove that shape.");
 		
+		ToolButton edit = new ToolButton(new ImageIcon(MauseIcon.edit.getIcon()), Tool.EDIT);
+		this.add(edit);
+		edit.addActionListener(new ToolButtonHandler(drawingPanel));
+		drawingPanel.addButton(edit);
+		edit.setToolTipText("Sets the selected shape to the current settings (color, thickness).");
+		
+		
 		JTextField sliderText = new JTextField("003");
 		JSlider slider = new JSlider();
 		slider.setToolTipText("Adjust the line thickness of rectangles, circles and lines");

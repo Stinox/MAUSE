@@ -248,6 +248,15 @@ public class DrawingPanel extends JPanel {
 		}
 	}
 	
+	private void edit(){
+		if(selectedShape != null){
+			selectedShape.fillColor = this.fillColor;
+			selectedShape.strokeColor = this.strokeColor;
+			selectedShape.setStrokeSize(strokeSize);
+			repaint();
+		}
+	}
+	
 	public void setSelectedTool(Tool tool){
 		if(tool == Tool.FOREGROUND){
 			this.toForeground();
@@ -255,6 +264,10 @@ public class DrawingPanel extends JPanel {
 		}
 		if(tool == Tool.BACKGROUND){
 			this.toBackground();
+			return;
+		}
+		if(tool == Tool.EDIT){
+			this.edit();
 			return;
 		}
 		selectedTool = tool;

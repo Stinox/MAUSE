@@ -30,7 +30,7 @@ public class KeyAction extends AbstractAction{
 		}
 		else if(running){
 			running = false;
-			System.out.println("Stopped timer: " + Math.round((System.currentTimeMillis() - timer)/1000) + " seconds");
+			System.out.println("Stopped timer: " + (double) (System.currentTimeMillis() - timer) / 1000.0 + " seconds");
 		}
 	}
 

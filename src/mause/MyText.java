@@ -28,21 +28,23 @@ public class MyText extends MyShape implements ActionListener {
 		this.dp = dp;
 		
 		dialog = new JDialog();
+		dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
 		dialog.setTitle("Enter your text");
 		
 		textField = new JTextField("Your Text");
+		textField.setPreferredSize(new Dimension(50, 12));
 		dialog.add(textField);
 		
 		fontSizeField = new JTextField("12");
+		fontSizeField.setPreferredSize(new Dimension(50, 12));
 		dialog.add(fontSizeField);
 		
 		JButton button = new JButton("OK");
 		dialog.add(button);
 		
 		button.addActionListener(this);
-		dialog.setSize(new Dimension(500,100));
+		dialog.setSize(new Dimension(500,125));
 		dialog.setAlwaysOnTop(true);
-		dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
 		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 		super.width = 200;

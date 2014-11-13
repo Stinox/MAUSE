@@ -14,7 +14,6 @@ public abstract class MyShape {
 	protected int strokeSize;
 	protected Color strokeColor;
 	protected Color fillColor;
-	protected boolean fill;
 	protected int borderPadding = 3;
 	
 	public boolean contains(Point point){
@@ -104,11 +103,7 @@ public abstract class MyShape {
 	public void setY2(int y2) {
 		this.y2 = y2;
 	}
-
-	public void setFill(boolean fill) {
-		this.fill = fill;
-	}
-
+	
 	public int getWidth() {
 		return width;
 	}

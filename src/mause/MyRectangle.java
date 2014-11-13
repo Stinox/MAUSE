@@ -18,10 +18,8 @@ public class MyRectangle extends MyShape {
 		super.draw(g);
 		Rectangle2D.Double rect = new Rectangle2D.Double(startx, starty, width,
 				height);
-		if (fill) {
-			g.setColor(fillColor);
-			g.fill(rect);
-		}
+		g.setColor(fillColor);
+		g.fill(rect);
 		g.setColor(strokeColor);
 		g.draw(rect);
 	}

@@ -15,6 +15,8 @@ public class MauseIcon {
 	public static MauseIcon move = new MauseIcon("/icons/move.png");
 	public static MauseIcon resize = new MauseIcon("/icons/resize.png");
 	public static MauseIcon delete = new MauseIcon("/icons/delete.png");
+	public static MauseIcon foreground = new MauseIcon("/icons/foreground.png");
+	public static MauseIcon background = new MauseIcon("/icons/background.png");
 	
 	private BufferedImage icon;
 	

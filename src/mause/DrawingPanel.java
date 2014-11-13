@@ -106,6 +106,21 @@ public class DrawingPanel extends JPanel {
 		}
 	}
 	
+	private void toForeground() {
+		if(selectedShape != null){
+			shapesList.remove(selectedShape);
+			shapesList.add(0, selectedShape);
+			repaint();
+		}
+	}
+	private void toBackground() {
+		if(selectedShape != null){
+			shapesList.remove(selectedShape);
+			shapesList.add(selectedShape);
+			repaint();
+		}
+	}
+	
 	private void createImage(Point point){
 		selectedShape = null;
 		MyImage image = new MyImage(point.x, point.y);
@@ -234,6 +249,14 @@ public class DrawingPanel extends JPanel {
 	}
 	
 	public void setSelectedTool(Tool tool){
+		if(tool == Tool.FOREGROUND){
+			this.toForeground();
+			return;
+		}
+		if(tool == Tool.BACKGROUND){
+			this.toBackground();
+			return;
+		}
 		selectedTool = tool;
 		for(ToolButton button : toolButtons){
 			if(button.getTool() == tool){

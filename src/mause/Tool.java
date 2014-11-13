@@ -9,5 +9,7 @@ public enum Tool {
 	LINE,
 	DELETE,
 	MOVE,
-	RESIZE
+	RESIZE,
+	FOREGROUND,
+	BACKGROUND
 }

@@ -63,8 +63,17 @@ public class ButtonPanel extends JPanel {
 		delete.addActionListener(new ToolButtonHandler(drawingPanel));
 		drawingPanel.addButton(delete);
 		
+		ToolButton foreground = new ToolButton(new ImageIcon(MauseIcon.foreground.getIcon()), Tool.FOREGROUND);
+		this.add(foreground);
+		foreground.addActionListener(new ToolButtonHandler(drawingPanel));
+		
+		ToolButton background = new ToolButton(new ImageIcon(MauseIcon.background.getIcon()), Tool.BACKGROUND);
+		this.add(background);
+		background.addActionListener(new ToolButtonHandler(drawingPanel));
+		
 		JTextField sliderText = new JTextField("003");
 		JSlider slider = new JSlider();
+		slider.setToolTipText("Line Thickness");
 		slider.setValue(3);
 		this.add(slider);
 		this.add(sliderText);

@@ -25,7 +25,7 @@ public class Window extends JFrame {
 				}
 			}
 		}
-		super.setTitle(" Mega Awesome Uber Super Epic - MAUSE ");
+		super.setTitle(" Mega Awesome Uber Super Epic Painting Program - MAUSE ");
 		super.setSize(new Dimension(1600, 900));
 		// Make sure the window appears in the middle of your screen
 		super.setLocationRelativeTo(null);

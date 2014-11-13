@@ -4,9 +4,11 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class ButtonPanel extends JPanel {
 	
@@ -88,11 +90,15 @@ public class ButtonPanel extends JPanel {
 		edit.setToolTipText("Sets the selected shape to the current settings (color, thickness).");
 		
 		
+		
+		JLabel thickness = new JLabel("Line thickness: ", SwingConstants.LEFT);
 		JTextField sliderText = new JTextField("003");
 		JSlider slider = new JSlider();
+		thickness.setLabelFor(sliderText);
 		slider.setToolTipText("Adjust the line thickness of rectangles, circles and lines");
 		slider.setValue(3);
 		this.add(slider);
+		this.add(thickness);
 		this.add(sliderText);
 		slider.addChangeListener(new SliderHandler(drawingPanel, slider, sliderText));
 		

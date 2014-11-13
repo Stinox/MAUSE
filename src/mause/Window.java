@@ -17,7 +17,6 @@ public class Window extends JFrame {
 	public Window() {
 		// ’super ’ calls a function inherited from the parent class ( JFrame )
 		for(LookAndFeelInfo info: UIManager.getInstalledLookAndFeels()){
-			System.out.println(info.getName());
 			if("Nimbus".equals(info.getName())){
 				try {
 					UIManager.setLookAndFeel(info.getClassName());
